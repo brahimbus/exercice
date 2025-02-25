@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Forms</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div id="container" class="p-4">
+      <div class="mb-4">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              id="nom"
+              placeholder="Nom"
+              class="form-control"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="number"
+              id="age"
+              placeholder="Age"
+              class="form-control"
+            />
+          </div>
+          <div class="col-auto">
+            <button id="addBtn" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Age</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="tcontainer"></tbody>
+      </table>
+    </div>
+
+    <script>
+      let nomInput = document.querySelector("#nom");
+      let ageInput = document.querySelector("#age");
+      let addBtn = document.querySelector("#addBtn");
+      let tbody = document.querySelector("#tcontainer");
+      let rowCount = 0;
+
+      addBtn.addEventListener("click", () => {
+        let nomValue = nomInput.value;
+        let ageValue = ageInput.value;
+
+        if (nomValue === "" || ageValue === "" || isNaN(ageValue)) {
+          alert("Veuillez entrer un nom valide et un âge valide !");
+          return;
+        }
+
+        rowCount++;
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+      <td>${rowCount}</td>
+      <td>${nomValue}</td>
+      <td>${ageValue}</td>
+      <td>
+        <button class="btn btn-danger removeBtn">Remove</button>
+      </td>
+    `;
+
+        tbody.appendChild(tr);
+
+        // for clear inputs
+        nomInput.value = "";
+        ageInput.value = "";
+
+        tr.querySelector(".removeBtn").addEventListener("click", () => {
+          tr.remove();
+        });
+      });
+    </script>
+  </body>
+</html>
