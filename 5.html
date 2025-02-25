@@ -1,0 +1,12 @@
+<script>
+  let x = prompt("enter a number and look at the console");
+  function recu(n) {
+    if (n == 0) {
+      return "";
+    } else {
+      return recu(Math.floor(n / 2)) + (n % 2);
+    }
+  }
+
+  console.log(recu(x));
+</script>

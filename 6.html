@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculatrice Simple</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .champ {
+        margin: 10px 0;
+      }
+
+      input[type="text"] {
+        padding: 5px;
+        width: 100px;
+      }
+
+      .radio-group {
+        margin: 15px 0;
+      }
+
+      #resultat {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+      }
+
+      button {
+        padding: 5px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Calculatrice Simple</h2>
+
+    <div class="champ">Premier nombre: <input type="text" id="nombre1" /></div>
+    <div class="champ">Deuxième nombre: <input type="text" id="nombre2" /></div>
+
+    <div class="radio-group">
+      <p>Choisissez l'opération:</p>
+      <input type="radio" name="operation" value="+" checked /> Addition (+)<br />
+      <input type="radio" name="operation" value="-" /> Soustraction (-)<br />
+      <input type="radio" name="operation" value="*" /> Multiplication (*)<br />
+      <input type="radio" name="operation" value="/" /> Division (/)<br />
+    </div>
+
+    <button onclick="calculer()">Calculer</button>
+
+    <div id="resultat">Le résultat :</div>
+
+    <script>
+      function calculer() {
+        let nombre1 = document.getElementById("nombre1").value;
+        let nombre2 = document.getElementById("nombre2").value;
+
+        nombre1 = parseFloat(nombre1);
+        nombre2 = parseFloat(nombre2);
+
+        if (isNaN(nombre1) || isNaN(nombre2)) {
+          document.getElementById("resultat").innerHTML =
+            "Veuillez entrer des nombres valides";
+          return;
+        }
+
+        let operation = document.querySelector(
+          'input[name="operation"]:checked'
+        ).value;
+
+        let resultat;
+
+        switch (operation) {
+          case "+":
+            resultat = nombre1 + nombre2;
+            break;
+          case "-":
+            resultat = nombre1 - nombre2;
+            break;
+          case "*":
+            resultat = nombre1 * nombre2;
+            break;
+          case "/":
+            if (nombre2 === 0) {
+              document.getElementById("resultat").innerHTML =
+                "Division par zéro impossible";
+              return;
+            }
+            resultat = nombre1 / nombre2;
+            break;
+        }
+
+        document.getElementById(
+          "resultat"
+        ).innerHTML = `${nombre1} ${operation} ${nombre2} = ${resultat}`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<script>
+  let x = prompt("enter a number and look at the console");
+  let som_num = (x) => {
+    let som = 0;
+    let s = String(x);
+    for (i in s) {
+      som += Number(s[i]);
+    }
+    return som;
+  };
+  console.log(som_num(x));
+</script>

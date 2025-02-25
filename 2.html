@@ -1,0 +1,19 @@
+<script>
+  function pgcd(a, b) {
+    while (b !== 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+    return a;
+  }
+
+  let num1 = prompt("Entrez le premier nombre :");
+  let num2 = prompt("Entrez le deuxième nombre :");
+
+  if (!isNaN(num1) && !isNaN(num2)) {
+    alert("Le PGCD de " + num1 + " et " + num2 + " est : " + pgcd(num1, num2));
+  } else {
+    alert("Veuillez entrer des nombres valides !");
+  }
+</script>

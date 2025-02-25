@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inscription</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #2d3748;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #4a5568;
+        font-size: 0.95rem;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+      }
+
+      button {
+        width: 100%;
+        padding: 0.875rem;
+        background: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+        margin-top: 1rem;
+      }
+
+      button:hover {
+        background: #3182ce;
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      .error {
+        color: #e53e3e;
+        font-size: 0.875rem;
+        text-align: center;
+        display: none;
+        background: #fff5f5;
+        padding: 0.75rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 1.5rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        input,
+        select,
+        button {
+          padding: 0.625rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Inscription</h2>
+      <form id="inscriptionForm" onsubmit="return validerFormulaire()">
+        <div class="form-group">
+          <label for="civilite">Civilité:</label>
+          <select id="civilite">
+            <option value="">--Choisir--</option>
+            <option value="M">M.</option>
+            <option value="Mme">Mme</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nom">Nom:</label>
+          <input type="text" id="nom" />
+        </div>
+
+        <div class="form-group">
+          <label for="prenom">Prénom:</label>
+          <input type="text" id="prenom" />
+        </div>
+
+        <div class="form-group">
+          <label for="adresse">Adresse:</label>
+          <input type="text" id="adresse" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="telephone">Téléphone:</label>
+          <input type="tel" id="telephone" />
+        </div>
+
+        <div class="form-group">
+          <label for="pays">Pays:</label>
+          <select id="pays">
+            <option value="">--Choisir--</option>
+            <option value="FR">France</option>
+            <option value="MA">Maroc</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="login">Login:</label>
+          <input type="text" id="login" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe:</label>
+          <input type="password" id="password" />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer mot de passe:</label>
+          <input type="password" id="confirmPassword" />
+        </div>
+
+        <div id="erreurMessage" class="error"></div>
+
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
+
+    <script>
+      function validerFormulaire() {
+        let civilite = document.getElementById("civilite").value;
+        let nom = document.getElementById("nom").value;
+        let prenom = document.getElementById("prenom").value;
+        let adresse = document.getElementById("adresse").value;
+        let email = document.getElementById("email").value;
+        let telephone = document.getElementById("telephone").value;
+        let pays = document.getElementById("pays").value;
+        let login = document.getElementById("login").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+
+        let erreurMessage = document.getElementById("erreurMessage");
+        erreurMessage.style.display = "none";
+
+        if (
+          !civilite ||
+          !nom ||
+          !prenom ||
+          !adresse ||
+          !email ||
+          !telephone ||
+          !pays ||
+          !login ||
+          !password ||
+          !confirmPassword
+        ) {
+          erreurMessage.innerHTML = "Tous les champs sont obligatoires";
+          erreurMessage.style.display = "block";
+          return false;
+        }
+
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          erreurMessage.innerHTML = "Format d'email invalide";
+          erreurMessage.style.display = "block";
+          return false;
+        }
+
+        let telRegex = /^[0-9]{10}$/;
+        if (!telRegex.test(telephone)) {
+          erreurMessage.innerHTML =
+            "Format de téléphone invalide (10 chiffres)";
+          erreurMessage.style.display = "block";
+          return false;
+        }
+
+        if (password !== confirmPassword) {
+          erreurMessage.innerHTML = "Les mots de passe ne correspondent pas";
+          erreurMessage.style.display = "block";
+          return false;
+        }
+
+        alert("Inscription réussie!");
+        return true;
+      }
+    </script>
+  </body>
+</html>

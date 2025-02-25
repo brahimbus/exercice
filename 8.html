@@ -1,0 +1,100 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f3f4f6;
+      }
+
+      .slider-container {
+        position: relative;
+        width: 384px;
+        overflow: hidden;
+      }
+
+      #imag {
+        display: flex;
+        transition: transform 0.4s ease-in-out;
+      }
+
+      .slider-container img {
+        width: 384px;
+      }
+
+      .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      #prev {
+        left: 0;
+      }
+
+      #next {
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <div id="imag" style="transform: translateX(0%)"></div>
+      <a id="prev" class="nav-btn">P</a>
+      <a id="next" class="nav-btn">N</a>
+    </div>
+
+    <script>
+      let imges_table = ["1.jpg", "2.jpg", "3.jpg"];
+      let imag = document.getElementById("imag");
+
+      imges_table.forEach((src) => {
+        let img = document.createElement("img");
+        img.src = src;
+
+        imag.appendChild(img);
+      });
+
+      let prev = document.getElementById("prev");
+      let next = document.getElementById("next");
+
+      let x = 0;
+      let totalSlides = imges_table.length - 1;
+
+      prev.addEventListener("click", function () {
+        if (x === 0) {
+          x = totalSlides * 100;
+        } else {
+          x -= 100;
+        }
+        imag.style.transform = `translateX(-${x}%)`;
+      });
+
+      next.addEventListener("click", function () {
+        if (x === totalSlides * 100) {
+          x = 0;
+        } else {
+          x += 100;
+        }
+        imag.style.transform = `translateX(-${x}%)`;
+      });
+    </script>
+  </body>
+</html>
